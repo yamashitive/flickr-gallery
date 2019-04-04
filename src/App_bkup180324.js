@@ -85,7 +85,6 @@ class App extends Component {
 
         <p className="searchBox">
           <input className="textInput" 
-            placeholder= "shibuya"
             onChange = {this.HandleChange}
             onKeyUp = {() => this.Delay(function(){
               this.ReloadImages();
