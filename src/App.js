@@ -16,6 +16,7 @@ class App extends Component {
     this.ReloadImages();
   }
 
+//
   ReloadImages = () => {
     //fetch()の結果はPromiseで返され、resolve関数には引数としてResponseオブジェクトが渡される。
     fetch('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key='+'80fc790f054fc08c6370aba43284e925'+'&tags=' + this.state.textInput + '&per_page=4&page=' + this.state.pageIndex + '&format=json&nojsoncallback=1')
