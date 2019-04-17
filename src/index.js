@@ -3,10 +3,12 @@ import {render} from 'react-dom';
 
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import tasksReducer from './reducers/tasks'
 // import { ReloadImages, AddImages, HandleChange, ChangePageIndex, App } from './containers/App'
 import App from './containers/App'
+import PictureDetail from './containers/PictureDetail'
 import './index.css';
 
 import * as serviceWorker from './serviceWorker';
@@ -14,24 +16,21 @@ import * as serviceWorker from './serviceWorker';
 
 
 // Store ----------------------------------------------------------------------------------------
-const store = createStore(tasksReducer);
+const store = createStore(
+  tasksReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  );
 
 // Rendering ----------------------------------------------------------------------------------------
-// const renderApp = (store) => {
-//   render(
-//     <Provider store={store}>
-//       <App />
-//     </Provider>,
-//     document.getElementById('root')
-//   );
-// }
-
-// store.subscribe(() => renderApp(store));
-// renderApp(store);
-
 render(
   <Provider store={store}>
-    <App />
+    <Router>
+      <Route exact path="/" component={App} />
+      <Route 
+        path="/picture/:id"
+        component={PictureDetail}
+      />
+    </Router>
   </Provider>,
   document.getElementById('root')
 );

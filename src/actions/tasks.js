@@ -13,6 +13,20 @@ export const addPicture = (pictureTag) => ({
   }
 });
 
+export const initializePictureSRC = (pictureSRC) => ({
+  type: 'INITIALIZE_PICTURESRC',
+  payload: {
+    pictureSRC
+  }
+});
+
+export const addPictureSRC = (pictureSRC) => ({
+  type: 'ADD_PICTURESRC',
+  payload: {
+    pictureSRC
+  }
+});
+
 export const inputText = (text) => ({
   type: 'INPUT_TEXT',
   payload: {
@@ -25,4 +39,8 @@ export const changeIndex = (indexNum) => ({
   payload: {
     indexNum
   }
+});
+
+export const changePlaceholder = () => ({
+  type: 'CHANGE_PLACEHOLDER'
 });

@@ -1,8 +1,10 @@
 // InitialState ----------------------------------------------------------------------------------------
 const initialState = {
   pictures: [],
+  pictureSRC: {},
   textInput: 'shibuya',
   pageIndex: 1,
+  placeholderText: 'shibuya',
 }
 
 // Reducer ----------------------------------------------------------------------------------------
@@ -20,6 +22,19 @@ export default function tasksReducer(state=initialState, action) {
         pictures: state.pictures.concat([action.payload.pictureTag])
       };
 
+    case 'INITIALIZE_PICTURESRC':
+      return {
+        ...state,
+        pictureSRC: action.payload.pictureSRC
+      };
+
+    case 'ADD_PICTURESRC':
+      const newSRC = Object.assign(state.pictureSRC, action.payload.pictureSRC);
+      return {
+        ...state,
+        pictureSRC: newSRC
+      };
+
     case 'INPUT_TEXT':
       return {
         ...state,
@@ -30,6 +45,12 @@ export default function tasksReducer(state=initialState, action) {
       return {
         ...state,
         pageIndex: action.payload.indexNum
+      };
+
+    case 'CHANGE_PLACEHOLDER':
+      return {
+        ...state,
+        placeholderText: ''
       };
 
     default:

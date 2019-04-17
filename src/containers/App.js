@@ -1,10 +1,11 @@
 import { connect } from 'react-redux';
 import App from '../components/App';
-import { initializePicture, addPicture, inputText, changeIndex } from '../actions/tasks';
+import { initializePicture, addPicture, initializePictureSRC, addPictureSRC, inputText, changeIndex, changePlaceholder } from '../actions/tasks';
 
-function mapStateToProps({ pictures, textInput, pageIndex }) {
+
+function mapStateToProps({ pictures, textInput, pageIndex, placeholderText }) {
 	return {
-		pictures, textInput, pageIndex
+		pictures, textInput, pageIndex, placeholderText
 	};
 }
 
@@ -16,11 +17,20 @@ function mapDispatchToPtops(dispatch) {
 		addPicture(pictureTag) {
 			dispatch(addPicture(pictureTag));
 		},
+		initializePictureSRC(pictureSRC) {
+			dispatch(initializePictureSRC(pictureSRC));
+		},
+		addPictureSRC(pictureSRC) {
+			dispatch(addPictureSRC(pictureSRC));
+		},
 		inputText(text) {
 			dispatch(inputText(text));
 		},
 		changeIndex(indexNum) {
 			dispatch(changeIndex(indexNum));
+		},
+		changePlaceholder() {
+			dispatch(changePlaceholder());
 		}
 	};
 }

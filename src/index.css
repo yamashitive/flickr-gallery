@@ -27,15 +27,12 @@ code {
   border-radius: .4em;
   outline: none;
 }
+
 .searchBox button {
   position: relative;
   margin-left: .8rem;
   padding: .3em 1.2em !important;
-  top: -5px;
-}
-
-.searchBox button:active {
-  background-image: linear-gradient(#67ceff 0%, #6795fd 100%);
+  top: -7px;
 }
 
 .picArea {
@@ -95,10 +92,17 @@ code {
   outline: none;
 }
 
+.searchBox button:active,
 .moreButton button:active {
   -webkit-transform: translateY(4px);
   transform: translateY(4px);
   box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
   border-bottom: none;
-  margin-top: 4px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+
+.moreButton button:hover,
+.searchBox button:hover {
+  background-image: linear-gradient(#67ceff 0%, #6795fd 100%);
 }

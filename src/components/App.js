@@ -1,26 +1,51 @@
 import React from 'react';
-// import { initializePicture, addPicture, inputText, changeIndex } from '../actions/tasks.js'
-
+import { Link } from 'react-router-dom';
 
 // Conpornent ----------------------------------------------------------------------------------------
-export default function App({pictures, textInput, pageIndex, initializePicture, addPicture, inputText, changeIndex}) {
-
+export default function App({pictures, textInput, pageIndex, placeholderText, initializePicture, addPicture, initializePictureSRC, addPictureSRC, inputText, changeIndex, changePlaceholder}) {
+  //async定義内では、awaitの処理が待たれる
   const ReloadImages = async() => {
-    await ChangePageIndex(1);  //async定義内では、awaitの処理が待たれる
+    // await Promise.all([ ChangePageIndex(1), initializePictureSRC() ]);
+    await ChangePageIndex(1);
 
     //fetch()の結果はPromiseで返され、resolve関数には引数としてResponseオブジェクトが渡される。
-    fetch('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key='+'80fc790f054fc08c6370aba43284e925'+'&tags=' + textInput + '&per_page=3&page=1&format=json&nojsoncallback=1')
+    fetch('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key='+'80fc790f054fc08c6370aba43284e925'+'&tags=' + textInput + '&per_page=10&page=1&format=json&nojsoncallback=1')
     .then(function(response){
       return response.json();
     })
     .then(function(j){
+
+
       let picArray = j.photos.photo.map((pic) => {
-        var srcPath = 'https://farm'+pic.farm+'.staticflickr.com/'+pic.server+'/'+pic.id+'_'+pic.secret+'_n.jpg';
-        var picID = pic.id;
-        return(<div key={picID}><img alt="" src={srcPath}></img></div>)
+        const srcPath = 'https://farm'+pic.farm+'.staticflickr.com/'+pic.server+'/'+pic.id+'_'+pic.secret+'_n.jpg';
+        const picID = pic.id;
+        const picURL = "/picture/" + pic.id;
+
+        return(
+          <div key={picID}>
+            <Link to={picURL}>
+              <img alt="" src={srcPath}></img>
+            </Link>
+          </div>
+        )
       })
 
+      let srcObj = {};
+      let addObj = {};
+      j.photos.photo.forEach((pic) => {
+        const srcPath = 'https://farm'+pic.farm+'.staticflickr.com/'+pic.server+'/'+pic.id+'_'+pic.secret+'.jpg';
+        const picID = pic.id;
+        const picTitle = pic.title;
+
+        const picInfo = {'src':srcPath, 'title':picTitle};
+        addObj[picID] = picInfo;
+        Object.assign(srcObj, addObj);
+      });
+
       initializePicture(picArray);
+      initializePictureSRC(srcObj)
+
+      // console.log(srcObj);
     }.bind(this))
   }
 
@@ -28,18 +53,39 @@ export default function App({pictures, textInput, pageIndex, initializePicture, 
     await ChangePageIndex();  //async定義内では、awaitの処理が待たれる
     pageIndex++;
 
-    fetch('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key='+'80fc790f054fc08c6370aba43284e925'+'&tags=' + textInput + '&per_page=3&page=' + pageIndex + '&format=json&nojsoncallback=1')
+    fetch('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key='+'80fc790f054fc08c6370aba43284e925'+'&tags=' + textInput + '&per_page=10&page=' + pageIndex + '&format=json&nojsoncallback=1')
     .then(function(response){
       return response.json();
     })
     .then(function(j){
       let addPicArray = j.photos.photo.map((pic) => {
-        var srcPath = 'https://farm'+pic.farm+'.staticflickr.com/'+pic.server+'/'+pic.id+'_'+pic.secret+'_n.jpg';
-        var picID = pic.id;
-        return(<div key={picID}><img alt="" src={srcPath}></img></div>)
+        const srcPath = 'https://farm'+pic.farm+'.staticflickr.com/'+pic.server+'/'+pic.id+'_'+pic.secret+'_n.jpg';
+        const picID = pic.id;
+        const picURL = "/picture/" + pic.id;
+
+        return(
+          <div key={picID}>
+            <Link to={picURL}>
+              <img alt="" src={srcPath} ></img>
+            </Link>
+          </div>
+        )
       })
 
+      let srcObj = {};
+      let addObj = {};
+      j.photos.photo.forEach((pic) => {
+        const srcPath = 'https://farm'+pic.farm+'.staticflickr.com/'+pic.server+'/'+pic.id+'_'+pic.secret+'.jpg';
+        const picID = pic.id;
+        const picTitle = pic.title;
+
+        const picInfo = {'src':srcPath, 'title':picTitle};
+        addObj[picID] = picInfo;
+        Object.assign(srcObj, addObj);
+      });
+
       addPicture(addPicArray);
+      addPictureSRC(srcObj);
     }.bind(this))
   }
 
@@ -48,6 +94,10 @@ export default function App({pictures, textInput, pageIndex, initializePicture, 
     if(e.target.value === ""){
     }else{
       inputText(e.target.value);
+    }
+
+    if(placeholderText) {
+      changePlaceholder();
     }
   }
 
@@ -60,10 +110,14 @@ export default function App({pictures, textInput, pageIndex, initializePicture, 
     }
 
     var currentPageIndex = p;
-    console.log(currentPageIndex);
+    // console.log(currentPageIndex);
 
     changeIndex(currentPageIndex);
   }
+
+  // const addPictureSRC = (s) => {
+  //   addPictureSRC(s);
+  // } 
 
   return (
     <div className="App">
@@ -73,7 +127,7 @@ export default function App({pictures, textInput, pageIndex, initializePicture, 
 
       <p className="searchBox">
         <input className="textInput" 
-          placeholder= "shibuya"
+          placeholder= {placeholderText}
           onChange = {HandleChange}
         ></input>
 
