@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import PictureDetail from '../components/PictureDetail';
 
 
-function mapStateToProps({pictureSRC},props) {
+function mapStateToProps({pictureSRC}) {
 	return {
 		pictureSRC
 	};

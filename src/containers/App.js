@@ -5,7 +5,7 @@ import { initializePicture, addPicture, initializePictureSRC, addPictureSRC, inp
 
 function mapStateToProps({ pictures, textInput, pageIndex, placeholderText }) {
 	return {
-		pictures, textInput, pageIndex, placeholderText
+		pictures, textInput, pageIndex, placeholderText,
 	};
 }
 
@@ -29,8 +29,8 @@ function mapDispatchToPtops(dispatch) {
 		changeIndex(indexNum) {
 			dispatch(changeIndex(indexNum));
 		},
-		changePlaceholder() {
-			dispatch(changePlaceholder());
+		changePlaceholder(phText) {
+			dispatch(changePlaceholder(phText));
 		}
 	};
 }

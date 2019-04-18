@@ -41,6 +41,9 @@ export const changeIndex = (indexNum) => ({
   }
 });
 
-export const changePlaceholder = () => ({
-  type: 'CHANGE_PLACEHOLDER'
+export const changePlaceholder = (phText) => ({
+  type: 'CHANGE_PLACEHOLDER',
+  payload: {
+    phText
+  }
 });

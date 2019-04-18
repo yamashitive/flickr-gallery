@@ -4,7 +4,7 @@ const initialState = {
   pictureSRC: {},
   textInput: 'shibuya',
   pageIndex: 1,
-  placeholderText: 'shibuya',
+  placeholderText: '検索ワードを入力してください。例)shibuya',
 }
 
 // Reducer ----------------------------------------------------------------------------------------
@@ -50,7 +50,7 @@ export default function tasksReducer(state=initialState, action) {
     case 'CHANGE_PLACEHOLDER':
       return {
         ...state,
-        placeholderText: ''
+        placeholderText: action.payload.phText
       };
 
     default:
