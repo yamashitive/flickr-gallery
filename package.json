@@ -1,8 +1,7 @@
 {
   "name": "flickr-gallery",
   "version": "0.1.0",
-  "homepage": "https://yamashitive.github.io/flickr-gallery/",
-  "private": true,
+  "homepage": "./",
   "dependencies": {
     "history": "^4.9.0",
     "react": "^16.8.4",

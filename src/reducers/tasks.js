@@ -4,7 +4,7 @@ const initialState = {
   pictureSRC: {},
   textInput: 'shibuya',
   pageIndex: 1,
-  placeholderText: '検索ワードを入力してください。例)shibuya',
+  placeholderText: 'shibuya',
 }
 
 // Reducer ----------------------------------------------------------------------------------------

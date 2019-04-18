@@ -6,6 +6,7 @@ export default function App({
   pictures, textInput, pageIndex, placeholderText, 
   initializePicture, addPicture, initializePictureSRC, addPictureSRC, inputText, changeIndex, changePlaceholder
 }) {
+
   //async定義内では、awaitの処理が待たれる
   const ReloadImages = async() => {
     // await Promise.all([ ChangePageIndex(1), initializePictureSRC() ]);
@@ -134,11 +135,23 @@ export default function App({
         {pictures}
       </section>
 
-      <p className="moreButton">
-        <button
-          onClick = {AddImages}
-        >画像をさらに読み込む</button>
-      </p>
+      {(
+        () => {
+          if (pictures.length > 0) {
+            return (
+              <p className="moreButton">
+                <button
+                  onClick = {AddImages}
+                >画像をさらに読み込む</button>
+              </p>
+            );
+          } else {
+            return (
+              <p>検索したいキーワードを入力して、［検索］ボタンを押してください。</p>
+            );
+          }
+        }
+      )()}
     </div>
   );
 }
