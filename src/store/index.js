@@ -8,7 +8,7 @@ import { routerReducer, routerMiddleware } from 'react-router-redux';
 import tasksReducer from '../reducers/tasks';
 
 //historyは[src/index.js]から渡すようにする
-export default function createStore(history) {
+const createStore = (history) => {
   return reduxCreateStore(
     combineReducers({
       //tasksReducerをtasksというkeyに割り当てる
@@ -22,3 +22,4 @@ export default function createStore(history) {
     )
   );
 }
+export default createStore;

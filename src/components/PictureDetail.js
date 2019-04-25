@@ -3,14 +3,18 @@ import {Link} from 'react-router-dom';
 import {HashLink} from 'react-router-hash-link';
 
 // Conpornent ----------------------------------------------------------------------------------------
-export default function PictureDetail(props) {
+const PictureDetail = (props) => {
 
-  var picID = props.match.params.id;
-  var picInfo = props.pictureSRC[picID];
+  const picID = props.match.params.id;
+  const picInfo = props.pictureSRC[picID];
+  let picSRC;
+  let picTitle;
+  let divHash;
+
   if(picInfo){
-    var picSRC = picInfo['src'];
-    var picTitle = picInfo['title'];
-    var divHash = "/#id-" + picID;
+    picSRC = picInfo['src'];
+    picTitle = picInfo['title'];
+    divHash = "/#id-" + picID;
   }
 
   return (
@@ -57,3 +61,4 @@ export default function PictureDetail(props) {
     </div>
   );
 }
+export default PictureDetail;

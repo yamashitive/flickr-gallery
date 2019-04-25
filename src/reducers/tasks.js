@@ -8,7 +8,7 @@ const initialState = {
 }
 
 // Reducer ----------------------------------------------------------------------------------------
-export default function tasksReducer(state=initialState, action) {
+const tasksReducer = (state=initialState, action) => {
   switch (action.type) {
     case 'INITIALIZE_PICTURE':
       return {
@@ -57,3 +57,4 @@ export default function tasksReducer(state=initialState, action) {
       return state;
   }
 }
+export default tasksReducer;

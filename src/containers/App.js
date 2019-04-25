@@ -3,13 +3,13 @@ import App from '../components/App';
 import { initializePicture, addPicture, initializePictureSRC, addPictureSRC, inputText, changeIndex, changePlaceholder } from '../actions/tasks';
 
 
-function mapStateToProps({ pictures, textInput, pageIndex, placeholderText }) {
+const mapStateToProps = ({ pictures, textInput, pageIndex, placeholderText }) => {
 	return {
 		pictures, textInput, pageIndex, placeholderText,
 	};
 }
 
-function mapDispatchToPtops(dispatch) {
+const mapDispatchToPtops  = (dispatch) => {
 	return {
 		initializePicture(pictureTag) {
 			dispatch(initializePicture(pictureTag));

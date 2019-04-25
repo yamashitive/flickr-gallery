@@ -2,11 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 // Conpornent ----------------------------------------------------------------------------------------
-export default function App({
+const App = ({
   pictures, textInput, pageIndex, placeholderText, 
   initializePicture, addPicture, initializePictureSRC, addPictureSRC, inputText, changeIndex, changePlaceholder
-}) {
-
+}) => {
   //async定義内では、awaitの処理が待たれる
   const ReloadImages = async() => {
     // await Promise.all([ ChangePageIndex(1), initializePictureSRC() ]);
@@ -14,10 +13,10 @@ export default function App({
 
     //fetch()の結果はPromiseで返され、resolve関数には引数としてResponseオブジェクトが渡される。
     fetch('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=80fc790f054fc08c6370aba43284e925&tags=' + textInput + '&per_page=10&page=1&format=json&nojsoncallback=1')
-    .then(function(response){
+    .then(response => {
       return response.json();
     })
-    .then(function(j){
+    .then(j => {
 
 
       let picArray = j.photos.photo.map((pic) => {
@@ -60,10 +59,10 @@ export default function App({
     pageIndex++;
 
     fetch('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=80fc790f054fc08c6370aba43284e925&tags=' + textInput + '&per_page=10&page=' + pageIndex + '&format=json&nojsoncallback=1')
-    .then(function(response){
+    .then(response => {
       return response.json();
     })
-    .then(function(j){
+    .then(j => {
       let addPicArray = j.photos.photo.map((pic) => {
         const srcPath = 'https://farm'+pic.farm+'.staticflickr.com/'+pic.server+'/'+pic.id+'_'+pic.secret+'_n.jpg';
         const picID = pic.id;
@@ -110,7 +109,7 @@ export default function App({
       p++;
     }
 
-    var currentPageIndex = p;
+    const currentPageIndex = p;
     changeIndex(currentPageIndex);
   }
 
@@ -155,3 +154,4 @@ export default function App({
     </div>
   );
 }
+export default App;
