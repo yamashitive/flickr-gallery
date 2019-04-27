@@ -8,7 +8,7 @@ const initialState = {
 }
 
 // Reducer ----------------------------------------------------------------------------------------
-const tasksReducer = (state=initialState, action) => {
+const flickrGalleryReducer = (state=initialState, action) => {
   switch (action.type) {
     case 'INITIALIZE_PICTURE':
       return {
@@ -57,4 +57,4 @@ const tasksReducer = (state=initialState, action) => {
       return state;
   }
 }
-export default tasksReducer;
+export default flickrGalleryReducer;

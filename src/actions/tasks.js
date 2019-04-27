@@ -1,10 +1,20 @@
+// import React from 'react';
+// import { Link } from 'react-router-dom';
+
+
 // ActionCreator ----------------------------------------------------------------------------------------
-export const initializePicture = (pictureTag) => ({
-  type: 'INITIALIZE_PICTURE',
-  payload: {
-    pictureTag
-  }
-});
+
+// sync
+export const initializePicture = (pictureTag) => {
+  console.log(pictureTag);
+
+  return {
+    type: 'INITIALIZE_PICTURE',
+    payload: {
+      pictureTag
+    }
+  };
+};
 
 export const addPicture = (pictureTag) => ({
   type: 'ADD_PICTURE',
@@ -47,3 +57,17 @@ export const changePlaceholder = (phText) => ({
     phText
   }
 });
+
+// async
+export const asyncInitializePicture = (pictureTag) => {
+  return (dispatch) => {
+    console.log(pictureTag);
+
+    setTimeout(() => {
+      dispatch(initializePicture(pictureTag));
+    }, 1000);
+  };
+}
+
+export const asyncAddPicture = (pictureTag) => {
+};

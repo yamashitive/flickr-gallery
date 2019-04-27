@@ -2,10 +2,11 @@ import React from 'react';
 import {render} from 'react-dom';
 
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import tasksReducer from './reducers/tasks'
+import flickrGalleryReducer from './reducers/tasks'
+import thunk from 'redux-thunk';
 // import { ReloadImages, AddImages, HandleChange, ChangePageIndex, App } from './containers/App'
 import App from './containers/App'
 import PictureDetail from './containers/PictureDetail'
@@ -13,13 +14,21 @@ import './index.css';
 
 import * as serviceWorker from './serviceWorker';
 
-
+// middleware ----------------------------------------------------------------------------------------
+const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+// const middlewares = [thunk];
 
 // Store ----------------------------------------------------------------------------------------
-const store = createStore(
-  tasksReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  );
+const store = createStoreWithMiddleware(
+  flickrGalleryReducer
+  ,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
+// const store = createStore(
+//   flickrGalleryReducer,
+//   applyMiddleware(...middlewares)
+//   // ,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+// );
 
 // Rendering ----------------------------------------------------------------------------------------
 render(

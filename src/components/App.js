@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 // Conpornent ----------------------------------------------------------------------------------------
 const App = ({
   pictures, textInput, pageIndex, placeholderText, 
-  initializePicture, addPicture, initializePictureSRC, addPictureSRC, inputText, changeIndex, changePlaceholder
+  initializePicture, addPicture, initializePictureSRC, addPictureSRC, inputText, changeIndex, changePlaceholder, asyncInitializePicture
 }) => {
   //async定義内では、awaitの処理が待たれる
   const ReloadImages = async() => {
@@ -18,8 +18,8 @@ const App = ({
     })
     .then(j => {
 
-
-      let picArray = j.photos.photo.map((pic) => {
+      // 画像追加
+      const picArray = j.photos.photo.map((pic) => {
         const srcPath = 'https://farm'+pic.farm+'.staticflickr.com/'+pic.server+'/'+pic.id+'_'+pic.secret+'_n.jpg';
         const picID = pic.id;
         const picURL = "/picture/" + pic.id;
@@ -33,7 +33,10 @@ const App = ({
           </div>
         )
       })
+      // initializePicture(picArray);
+      asyncInitializePicture(picArray);
 
+      // 画像情報追加
       let srcObj = {};
       let addObj = {};
       j.photos.photo.forEach((pic) => {
@@ -45,12 +48,12 @@ const App = ({
         addObj[picID] = picInfo;
         Object.assign(srcObj, addObj);
       });
-
-      initializePicture(picArray);
       initializePictureSRC(srcObj)
 
-      let phText = "現在の検索ワード：" + textInput;
+      // プレースホルダー変更
+      const phText = "現在の検索ワード：" + textInput;
       changePlaceholder(phText);
+
     })
   }
 
@@ -63,7 +66,9 @@ const App = ({
       return response.json();
     })
     .then(j => {
-      let addPicArray = j.photos.photo.map((pic) => {
+
+      // 画像追加
+      const addPicArray = j.photos.photo.map((pic) => {
         const srcPath = 'https://farm'+pic.farm+'.staticflickr.com/'+pic.server+'/'+pic.id+'_'+pic.secret+'_n.jpg';
         const picID = pic.id;
         const picURL = "/picture/" + pic.id;
@@ -77,7 +82,9 @@ const App = ({
           </div>
         )
       })
+      addPicture(addPicArray);
 
+      // 画像情報追加
       let srcObj = {};
       let addObj = {};
       j.photos.photo.forEach((pic) => {
@@ -89,13 +96,12 @@ const App = ({
         addObj[picID] = picInfo;
         Object.assign(srcObj, addObj);
       });
-
-      addPicture(addPicArray);
       addPictureSRC(srcObj);
+
     })
   }
 
-  //input変更時、stateの検索キーワードを変更
+  //検索キーワードを変更
   const HandleChange = (e) => {
     if(e.target.value === ""){
     }else{
@@ -103,6 +109,7 @@ const App = ({
     }
   }
 
+  // ページ数の変更
   const ChangePageIndex = (p) => {
     if(!p){
       p = pageIndex;
