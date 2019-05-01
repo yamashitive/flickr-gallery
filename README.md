@@ -1,10 +1,11 @@
 # flickr-gallery
 
-I made SPA with Flickr API to study React.
+I made SPA with Flickr API to study React.  
 I used React, Redux, Router, Thunk and Flickr API.
 
-Reactの学習のためにFlickr APIを利用したSPAを作成しました。
+Reactの学習のためにFlickr APIを利用したSPAを作成しました。  
 React, Redux, Router, ThunkとFlickr APIを使用しています。
+
 
 ![flickr-gallery](resouces/flickr-gallery_430.gif)
 
