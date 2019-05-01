@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+const flickrapikey = "Your Flickr API KEY";
+
 // ActionCreator ----------------------------------------------------------------------------------------
 
 // sync
@@ -62,7 +64,7 @@ export const reloadImages = (textInput) => {
   return async(dispatch, getState) => {
     await dispatch(changeIndex(2));
 
-    fetch('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=80fc790f054fc08c6370aba43284e925&tags=' + textInput + '&per_page=10&page=1&format=json&nojsoncallback=1')
+    fetch('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + flickrapikey + '&tags=' + textInput + '&per_page=10&page=1&format=json&nojsoncallback=1')
     .then(response => {
       return response.json();
     })
@@ -88,7 +90,7 @@ export const addImages = (textInput, pageIndex) => {
   return async(dispatch, getState) => {
     await changePageIndex(pageIndex, dispatch);
 
-    fetch('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=80fc790f054fc08c6370aba43284e925&tags=' + textInput + '&per_page=10&page=' + pageIndex + '&format=json&nojsoncallback=1')
+    fetch('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=' + flickrapikey + '&tags=' + textInput + '&per_page=10&page=' + pageIndex + '&format=json&nojsoncallback=1')
     .then(response => {
       return response.json();
     })
