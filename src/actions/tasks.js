@@ -1,12 +1,11 @@
-// import React from 'react';
-// import { Link } from 'react-router-dom';
-
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 // ActionCreator ----------------------------------------------------------------------------------------
 
 // sync
 export const initializePicture = (pictureTag) => {
-  console.log(pictureTag);
+  // console.log(pictureTag);
 
   return {
     type: 'INITIALIZE_PICTURE',
@@ -59,15 +58,89 @@ export const changePlaceholder = (phText) => ({
 });
 
 // async
-export const asyncInitializePicture = (pictureTag) => {
-  return (dispatch) => {
-    console.log(pictureTag);
+export const reloadImages = (textInput) => {
+  return async(dispatch, getState) => {
+    await dispatch(changeIndex(2));
 
-    setTimeout(() => {
-      dispatch(initializePicture(pictureTag));
-    }, 1000);
+    fetch('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=80fc790f054fc08c6370aba43284e925&tags=' + textInput + '&per_page=10&page=1&format=json&nojsoncallback=1')
+    .then(response => {
+      return response.json();
+    })
+    .then(j => {
+
+      // 画像追加
+      const picArray = makePicArray(j);
+      dispatch(initializePicture(picArray));
+
+      // 画像情報追加
+      const srcObj = makePicSRCs(j);
+      dispatch(initializePictureSRC(srcObj));
+
+      // プレースホルダー変更
+      const phText = "現在の検索ワード：" + textInput;
+      dispatch(changePlaceholder(phText));
+
+    })
   };
 }
 
-export const asyncAddPicture = (pictureTag) => {
-};
+export const addImages = (textInput, pageIndex) => {
+  return async(dispatch, getState) => {
+    await changePageIndex(pageIndex, dispatch);
+
+    fetch('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=80fc790f054fc08c6370aba43284e925&tags=' + textInput + '&per_page=10&page=' + pageIndex + '&format=json&nojsoncallback=1')
+    .then(response => {
+      return response.json();
+    })
+    .then(j => {
+
+      // 画像追加
+      const addPicArray = makePicArray(j);
+      dispatch(addPicture(addPicArray));
+
+      // 画像情報追加
+      const srcObj = makePicSRCs(j);
+      dispatch(addPictureSRC(srcObj));
+    })
+  };
+}
+
+const makePicArray = (j) => {
+  return (
+    j.photos.photo.map((pic) => {
+      const srcPath = 'https://farm'+pic.farm+'.staticflickr.com/'+pic.server+'/'+pic.id+'_'+pic.secret+'_n.jpg';
+      const picID = pic.id;
+      const picURL = "/picture/" + pic.id;
+      const divID = "id-" + pic.id;
+
+      return(
+        <div id={divID} key={picID}>
+          <Link to={picURL}>
+            <img alt="" src={srcPath} ></img>
+          </Link>
+        </div>
+      )
+    })
+  )
+}
+
+const makePicSRCs = (j) => {
+  let srcObj = {};
+  let addObj = {};
+  j.photos.photo.forEach((pic) => {
+    const srcPath = 'https://farm'+pic.farm+'.staticflickr.com/'+pic.server+'/'+pic.id+'_'+pic.secret+'.jpg';
+    const picID = pic.id;
+    const picTitle = pic.title;
+
+    const picInfo = {'src':srcPath, 'title':picTitle};
+    addObj[picID] = picInfo;
+    Object.assign(srcObj, addObj);
+  });
+
+  return srcObj;
+}
+
+const changePageIndex = (pageIndex, dispatch) => {
+  pageIndex++;
+  dispatch(changeIndex(pageIndex));
+}

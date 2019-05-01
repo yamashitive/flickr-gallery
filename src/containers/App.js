@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import App from '../components/App';
-import { initializePicture, addPicture, initializePictureSRC, addPictureSRC, inputText, changeIndex, changePlaceholder, asyncInitializePicture } from '../actions/tasks';
+import { initializePicture, addPicture, initializePictureSRC, addPictureSRC, inputText, changeIndex, changePlaceholder, reloadImages, addImages } from '../actions/tasks';
 
 
 const mapStateToProps = ({ pictures, textInput, pageIndex, placeholderText }) => {
@@ -9,7 +9,7 @@ const mapStateToProps = ({ pictures, textInput, pageIndex, placeholderText }) =>
 	};
 }
 
-const mapDispatchToPtops  = (dispatch) => {
+const mapDispatchToPtops  = (dispatch, getState) => {
 	return {
 		initializePicture(pictureTag) {
 			dispatch(initializePicture(pictureTag));
@@ -32,8 +32,11 @@ const mapDispatchToPtops  = (dispatch) => {
 		changePlaceholder(phText) {
 			dispatch(changePlaceholder(phText));
 		},
-		asyncInitializePicture(inputText) {
-			dispatch(asyncInitializePicture(inputText));
+		reloadImages(textInput) {
+			dispatch(reloadImages(textInput));
+		},
+		addImages(textInput, pageIndex) {
+			dispatch(addImages(textInput, pageIndex));
 		}
 	};
 }

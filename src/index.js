@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import flickrGalleryReducer from './reducers/tasks'
 import thunk from 'redux-thunk';
+// import logger from 'redux-logger';
 // import { ReloadImages, AddImages, HandleChange, ChangePageIndex, App } from './containers/App'
 import App from './containers/App'
 import PictureDetail from './containers/PictureDetail'
@@ -15,7 +16,8 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 
 // middleware ----------------------------------------------------------------------------------------
-const createStoreWithMiddleware = applyMiddleware(thunk)(createStore);
+const middlewares = [thunk];
+const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore);
 // const middlewares = [thunk];
 
 // Store ----------------------------------------------------------------------------------------
