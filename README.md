@@ -1,13 +1,13 @@
 # flickr-gallery
 
 I made SPA with Flickr API to study React.  
-I used React, Redux, Router, Thunk and Flickr API.
-You can try this app. Demo is [here](https://yamashitive.github.io/flickr-gallery/#/).
+I used React, Redux, Router, Thunk and Flickr API.  
+You can try this app. Demo is [here](https://yamashitive.github.io/flickr-gallery/#/).  
 Note:I couldn't use BrowserRouter of react-router-dom when I do "npm run build", so I used HashRouter instead.
 
 Reactの学習のためにFlickr APIを利用したSPAを作成しました。  
-React, Redux, Router, ThunkとFlickr APIを使用しています。
-実際の動きは[こちら](https://yamashitive.github.io/flickr-gallery/#/)から
+React, Redux, Router, ThunkとFlickr APIを使用しています。  
+実際の動きは[こちら](https://yamashitive.github.io/flickr-gallery/#/)から  
 ※ npm run buildする時に、react-router-domのBrowserRouterが使えなかったので、HashRouterを使用しています。
 
 ![flickr-gallery](resouces/flickr-gallery_430.gif)
